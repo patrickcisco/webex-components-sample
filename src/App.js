@@ -2,13 +2,13 @@ import '@momentum-ui/core/css/momentum-ui.min.css';
 import '@webex/components/dist/css/webex-components.css';
 import React, {useEffect, useState} from 'react';
 import Webex from 'webex';
-import WebexMeetingAdapter from '@webex/sdk-component-adapter';
+import WebexSDKAdapter from '@webex/sdk-component-adapter';
 import {WebexAvatar, WebexDataProvider, WebexMeeting} from '@webex/components';
 
 const webex = new Webex({
   credentials: '<CREDENTIALS>',
 });
-const adapter = new WebexMeetingAdapter(webex);
+const adapter = new WebexSDKAdapter(webex);
 
 function App() {
   const [adapterConnected, setAdapterConnected] = useState(false);
