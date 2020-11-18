@@ -2,17 +2,16 @@ import '@momentum-ui/core/css/momentum-ui.min.css';
 import '@webex/components/dist/css/webex-components.css';
 import React, {useEffect, useState} from 'react';
 import Webex from 'webex';
-import WebexSDKAdapter from '@webex/sdk-component-adapter';
-import {WebexAvatar, WebexDataProvider} from '@webex/components';
+import WebexMeetingAdapter from '@webex/sdk-component-adapter';
+import {WebexAvatar, WebexDataProvider, WebexMeeting} from '@webex/components';
 
 const webex = new Webex({
   credentials: '<CREDENTIALS>',
 });
-const adapter = new WebexSDKAdapter(webex);
+const adapter = new WebexMeetingAdapter(webex);
 
 function App() {
   const [adapterConnected, setAdapterConnected] = useState(false);
-
   useEffect(() => {
     // This is the suggested way to do async hooks.
     // Ref: https://github.com/facebook/react/issues/14326
@@ -21,22 +20,18 @@ function App() {
       await adapter.connect();
       setAdapterConnected(true);
     }
-
     doConnect();
-
     // On teardown, disconnect the adapter
     return () => {
       adapter.disconnect();
     }
   }, []);
-
-
   return (
     <div className="App">
       {
         adapterConnected && (
-          <WebexDataProvider adapter={adapter} >
-            <WebexAvatar personID="<PERSON ID>" />
+          <WebexDataProvider adapter={adapter}>
+            <WebexMeeting meetingDestination="<sip, email, meeting id>"/>
           </WebexDataProvider>
         )
       }
